@@ -9,7 +9,7 @@
 
 void print(double a[], size_t size){
     for(int i = 0; i < size; i++){
-        printf("%d",a[i]);
+        printf("%f",a[i]);
     }
     printf("\n");
 }
