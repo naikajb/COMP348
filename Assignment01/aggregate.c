@@ -8,8 +8,7 @@
 #include <string.h>
 
 static double count(double* arr, int size);
-
-const char *func_names = {"COUNT", "MIN", "MAX", "SUM","AVG","PAVG"};
+static double min(double * arr, int size);
 
 double aggregrate(const char* func, double* arr,int size){
 
@@ -19,9 +18,6 @@ double aggregrate(const char* func, double* arr,int size){
     }
     return 0;
 
-    if(strcmp(func,func_names[0])){
-        return count(arr,size);
-    }
 }
 
 

@@ -5,7 +5,7 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-//#include "singular.h"
+#include "singular.h"
 
 void print(double a[], size_t size){
     for(int i = 0; i < size; i++){

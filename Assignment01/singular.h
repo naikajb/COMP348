@@ -16,5 +16,5 @@ enum filter_type{
 
 void print(double a[], size_t size);
 void shift(double a[], size_t size, double by);
-size_t filter(double a[], size_t count, filter_type t, double threshold);
+//size_t filter(double a[], size_t count, filter_type t, double threshold);
 
