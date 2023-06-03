@@ -18,7 +18,6 @@ int main(int argc, char const *argv[])
 {
 
     char buffer = 0;
-
     // space for values in the input file
     double *valuesArr = (double *)malloc(256 * sizeof(double));
     double value = 0;
@@ -35,7 +34,7 @@ int main(int argc, char const *argv[])
         //each double at a time is analysed and put in the array "valuesArr"
         while(sscanf(&buffer + offset, "%lf%n", &value, &scanned) == 1){
             valuesArr[n] = value;
-            //printf("[%d]\t --> \t%f\n", n,valuesArr[n]);
+            printf("[%d]\t --> \t%f\n", n,valuesArr[n]);
             n++;
             offset += scanned;
         }
