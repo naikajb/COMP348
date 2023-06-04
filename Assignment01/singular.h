@@ -4,7 +4,6 @@
     Naika Jean-Baptiste (40227367)
 */
 #include <stdlib.h>
-
 enum filter_type{
     EQ = 0,
     NEQ = 1,

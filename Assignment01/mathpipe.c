@@ -14,14 +14,21 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "singular.h"
+#include "aggregate.h"
 
 int prec = 0;
 int size = 0;
+int singFuncIdx;//index at which the singular function is;
 bool isAggregate = false;
 bool isSingular = false;
 char* aggFunc;
+char* singFunc;
+
 
 void checkAggregate(char* funcName);
+void checkSingular(char* funcName, const char** args);
+void performActions(double a[]);
 
 int main(int argc, char const *argv[])
 {
@@ -36,7 +43,7 @@ int main(int argc, char const *argv[])
         if(strcasecmp(argv[i],"sum") == 0)
         {
            // printf("first function is sum");
-            checkAggregate("sum");
+            checkAggregate("SUM");
             
         }else if (strcasecmp(argv[i], "PAVG") == 0)
         {
@@ -54,13 +61,36 @@ int main(int argc, char const *argv[])
         {
             checkAggregate("COUNT");
         }
+        else if(strcasecmp(argv[i], "MAX") == 0)
+        {
+            checkAggregate("MAX");
+        }
+        else if(strcasecmp(argv[i], "MIN") == 0)
+        {
+            checkAggregate("MIN");
+        }
+        else if(strcasecmp(argv[i], "FILTER") == 0)
+        {
+            singFuncIdx = i;
+            checkSingular("FILTER", argv);
+        }else if (strcasecmp(argv[i], "PRINT") == 0){
+            singFuncIdx = i;
+            checkSingular("PRINT", argv);
+        }else if (strcasecmp(argv[i], "SHIFT") == 0){
+            singFuncIdx = i;
+            checkSingular("SHIFT", argv);
+        }else if(strstr(argv[i], "-size=") != NULL ){
+            printf("\n size parameter not handled yet ");
+        }else if (strstr(argv[i], "-prec=") != NULL ){
+            printf("\n precision parameter not handled yet ");
+        }
         
         printf("\n[%d]\t%s\n", i,argv[i]);
     }
 
     //printf("\n%s", aggFunc);
    
-    /*char buffer = 0;
+    char buffer = 0;
     // space for values in the input file
     double *valuesArr = (double *)malloc(256 * sizeof(double));
     double value = 0;
@@ -81,10 +111,12 @@ int main(int argc, char const *argv[])
             n++;
             offset += scanned;
         }
+        //TODO check for the precision and size before performing actions method
+        performActions(valuesArr);
     }
     free(valuesArr);
 
-    return 0;*/
+    return 0;
 }
 
 void checkAggregate(char* funcName){
@@ -94,5 +126,39 @@ void checkAggregate(char* funcName){
         printf("the chose function is %s", funcName);
     }else{
         fprintf(stderr, "\nProblem: your are trying to use two aggregate functions at once\n\t-->current specificed function: %s\n\t-->trying to use function: %s", aggFunc,funcName);
+    }
+}
+
+void checkSingular(char* funcName,const char** args){
+    if(strstr(funcName,"FILTER") != NULL){
+        isSingular = true;
+        printf("\nmissing implemetation of filter func for options: %s %s", args[singFuncIdx +1], args[singFuncIdx +2]);
+        singFunc = "filter";
+    }else if(strstr(funcName,"PRINT") != NULL ){
+        isSingular = true;
+        printf("\nmissing implemetation of print func");
+        singFunc = "print";
+    }else if(strstr(funcName,"SHIFT") != NULL){
+        isSingular = true;
+        singFunc = "shift";
+    }
+
+}
+
+void performActions(double a[]){
+    if(isAggregate){
+        //aggregrate(aggFunc,a, size);
+    }
+    else if(isSingular){
+        if (strcmp(singFunc,"FILTER") == 0)
+        {
+            /* code */
+        }
+        else if (strcmp(singFunc,"PRINT") == 0){
+            //print(a)
+        }else if (strcmp(singFunc,"SHIFT") == 0){
+            //shift(a);
+        }
+        
     }
 }
