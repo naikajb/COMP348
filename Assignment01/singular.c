@@ -7,14 +7,18 @@
 #include <stdlib.h>
 #include "singular.h"
 
+
 void print(double a[], size_t size){
-    for(int i = 0; i < size; i++){
-        printf("%f",a[i]);
+    
+    for(size_t i = 0; i < size; i++){
+        fprintf(stdout,"[%zu]\t%f",i,a[i]);
     }
-    printf("\n");
+    //printf("%d\n", prec);
 }
 void shift(double a[], size_t size, double by){
+    for(int i = 0; i < size; i++){
 
+    }
 }
 
 /*size_t filter(double a[], size_t count, filter_type t, double threshold){

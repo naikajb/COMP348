@@ -17,10 +17,10 @@
 #include "singular.h"
 #include "aggregate.h"
 
-int prec = 0;
-int size = -1;
+int prec = -1;
+int size = 0;
 int singFuncIdx; // index at which the singular function is;
-int singFuncValue;
+double singFuncValue;
 bool isAggregate = false;
 bool isSingular = false;
 char *aggFunc;
@@ -28,10 +28,11 @@ char *singFunc;
 char *filterType;
 char *filterOpt;
 
+ 
 void handleCmdLine(int argc, char const **argv);
 void checkAggregate(char *funcName);
 void checkSingular(char *funcName, const char **args);
-void performActions(char const **argv, int size);
+void performActions(double arr[], int sizeVal);
 
 int main(int argc, char const *argv[])
 {
@@ -58,9 +59,10 @@ int main(int argc, char const *argv[])
 
     // reads a line by line from stdin
     // in this case will read a line from sample.txt file
-    while (fgets(&buffer, 1000, stdin) != NULL)
+    while (fgets(&buffer, 100, stdin) != NULL)
     {
-        if (size == -1)
+        printf("\t[size-->]%i\n",size);
+        if (size == 0)
         {
             int offset = 0;
             // this will look at the line currently in the buffer
@@ -71,8 +73,9 @@ int main(int argc, char const *argv[])
                 printf("[%d]\t --> \t%f\n", n, valuesArr[n]);
                 n++;
                 offset += scanned;
-                size = n;
             }
+            size = n;
+            performActions(valuesArr,size);
         }
         else
         {
@@ -86,6 +89,8 @@ int main(int argc, char const *argv[])
                 n++;
                 offset += scanned;
             }
+            performActions(valuesArr, n);
+            n = 0;
         }
 
         // TODO check for the precision and size before performing actions method
@@ -123,7 +128,7 @@ void checkSingular(char *funcName, const char **args)
         else if (strstr(funcName, "PRINT") != NULL)
         {
             isSingular = true;
-            printf("\nmissing implemetation of print func");
+            //printf("\nmissing implemetation of print func");
             singFunc = "print";
         }
         else if (strstr(funcName, "SHIFT") != NULL)
@@ -136,11 +141,11 @@ void checkSingular(char *funcName, const char **args)
     }
 }
 
-void performActions(char const **argv, int size)
+void performActions(double arr[], int sizeVal)
 {
     if (isAggregate)
     {
-        // aggregrate(aggFunc,a, size);
+        //double var = aggregrate(aggFunc,arr, size);
     }
     else if (isSingular)
     {
@@ -150,7 +155,8 @@ void performActions(char const **argv, int size)
         }
         else if (strcmp(singFunc, "PRINT") == 0)
         {
-            // print(a)
+            size_t s = (size_t) size;
+            print(arr, s);
         }
         else if (strcmp(singFunc, "SHIFT") == 0)
         {
@@ -197,7 +203,7 @@ void handleCmdLine(int argc, char const **argv)
             if (strcasecmp(argv[i + 1], "EQ") == 0)
             {
 
-                if (sscanf(argv[i + 2], "%i", &singFuncValue) == 1)
+                if (sscanf(argv[i + 2], "%lf", &singFuncValue) == 1)
                 {
                     filterOpt = "EQ";
                     singFuncIdx = i;
@@ -207,7 +213,7 @@ void handleCmdLine(int argc, char const **argv)
             else if (strcasecmp(argv[i + 1], "GEQ") == 0)
             {
 
-                if (sscanf(argv[i + 2], "%i", &singFuncValue) == 1)
+                if (sscanf(argv[i + 2], "%lf", &singFuncValue) == 1)
                 {
                     singFuncIdx = i;
                     filterOpt = "GEQ";
@@ -217,7 +223,7 @@ void handleCmdLine(int argc, char const **argv)
             else if (strcasecmp(argv[i + 1], "NEQ") == 0)
             {
 
-                if (sscanf(argv[i + 2], "%i", &singFuncValue) == 1)
+                if (sscanf(argv[i + 2], "%lf", &singFuncValue) == 1)
                 {
                     filterOpt = "NEQ";
                     singFuncIdx = i;
@@ -226,7 +232,7 @@ void handleCmdLine(int argc, char const **argv)
             }
             else if (strcasecmp(argv[i + 1], "LEQ") == 0)
             {
-                if (sscanf(argv[i + 2], "%i", &singFuncValue) == 1)
+                if (sscanf(argv[i + 2], "%lf", &singFuncValue) == 1)
                 {
                     filterOpt = "LEQ";
                     singFuncIdx = i;
@@ -236,7 +242,7 @@ void handleCmdLine(int argc, char const **argv)
             else if (strcasecmp(argv[i + 1], "LESS") == 0)
             {
 
-                if (sscanf(argv[i + 2], "%i", &singFuncValue) == 1)
+                if (sscanf(argv[i + 2], "%lf", &singFuncValue) == 1)
                 {
                     singFuncIdx = i;
                     filterOpt = "LESS";
@@ -246,7 +252,7 @@ void handleCmdLine(int argc, char const **argv)
             else if (strcasecmp(argv[i + 1], "GREATER") == 0)
             {
 
-                if (sscanf(argv[i + 2], "%i", &singFuncValue) == 1)
+                if (sscanf(argv[i + 2], "%lf", &singFuncValue) == 1)
                 {
                     filterOpt = "GREATER";
                     singFuncIdx = i;
@@ -265,8 +271,13 @@ void handleCmdLine(int argc, char const **argv)
         }
         else if (strcasecmp(argv[i], "SHIFT") == 0)
         {
-            singFuncIdx = i;
-            checkSingular("SHIFT", argv);
+            if(sscanf(argv[i+1], "%lf", &singFuncValue) == 1){
+                 singFuncIdx = i;
+                checkSingular("SHIFT", argv);
+            }else{
+                 fprintf(stderr, "smtg went wrong with trying initialize the SHIFT command");
+            }
+           
         }
         else if (strstr(argv[i], "-size=") != NULL)
         {
@@ -274,7 +285,7 @@ void handleCmdLine(int argc, char const **argv)
             // scans the string for the integer representing size
             while (sscanf(argv[i], "-size=%d", &size) == 1)
             {
-                printf("Specified size of arrays --> %d", size);
+                printf("Specified size of arrays --> %d\n", size);
                 break;
             }
         }
@@ -289,7 +300,7 @@ void handleCmdLine(int argc, char const **argv)
             }
         }
 
-        printf("\n\t[%d]\t%s\n", i, argv[i]);
+        //printf("\n\t[%d]\t%s\n", i, argv[i]);
     }
 
     if (isAggregate == true)
@@ -299,6 +310,7 @@ void handleCmdLine(int argc, char const **argv)
 
     if (isSingular == true)
     {
-        printf("The chosen singular function is %s with  option %s and value %i\n", singFunc, filterOpt, singFuncValue);
+       
+        printf("The chosen singular function is %s with  option %s and value %f\n", singFunc, filterOpt, singFuncValue);
     }
 }
