@@ -21,6 +21,7 @@ int prec = -1;
 int size = 0;
 int singFuncIdx; // index at which the singular function is;
 double singFuncValue;
+double agg;
 bool isAggregate = false;
 bool isSingular = false;
 char *aggFunc;
@@ -28,11 +29,11 @@ char *singFunc;
 char *filterType;
 char *filterOpt;
 
- 
 void handleCmdLine(int argc, char const **argv);
 void checkAggregate(char *funcName);
 void checkSingular(char *funcName, const char **args);
 void performActions(double arr[], int sizeVal);
+void printArray(double arr[], int size);
 
 int main(int argc, char const *argv[])
 {
@@ -145,7 +146,16 @@ void performActions(double arr[], int sizeVal)
 {
     if (isAggregate)
     {
-        //double var = aggregrate(aggFunc,arr, size);
+        if (strcmp(singFunc, "SUM") == 0)
+        {
+            /*agg = aggregrate("sum",arr,sizeVal);
+            printf("sum is: %lf", agg);*/
+        }else if(strcmp(singFunc, "COUNT") == 0){
+           /* agg = aggregrate("count",arr,sizeVal);
+            printf("count is: %lf", agg);*/
+        }
+
+        
     }
     else if (isSingular)
     {
@@ -313,4 +323,12 @@ void handleCmdLine(int argc, char const **argv)
        
         printf("The chosen singular function is %s with  option %s and value %f\n", singFunc, filterOpt, singFuncValue);
     }
+}
+
+void printArray(double arr[], int size){
+    for (int i = 0; i < size; i++)
+    {
+        printf("[%i]-->%lf",i,arr[i]);
+    }
+    
 }

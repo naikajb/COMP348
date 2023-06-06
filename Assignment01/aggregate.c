@@ -15,14 +15,22 @@ static double avg(double* arr, int size);
 static double pavg(double* arr, int size);
 
 static const char* funcNames[] = {"COUNT","MIN", "MAX", "SUM", "AVG","PAVG"};
-double (*funcNames[]) (double* arr, int size) = {count,min,max,sum,avg,pavg};
+double (*func[6]) (double* arr, int size) = {count,min,max,sum,avg,pavg};
 
 
 double aggregrate(const char* func, double* arr,int size){
 
+    double val = 0;
     //TODO print error message when size of arr less than 1
     if(size < 0){
         fprintf(stderr, "FATAL ERROR in line %d where", __LINE__);
+    }else{
+        
+        for(int i = 0; i < 6; i++){
+            if(strcasecmp(func,funcNames[i]) == 0){
+                val = func[i](arr,size);
+            }
+        }
     }
     return 0;
 
@@ -46,14 +54,14 @@ static double min(double* arr, int size){
 
 
 static double max(double* arr, int size){
-    double max = 0;
+    double m = 0;
 
     for(int i = 0; i < size; i++){
-        if(arr[i] > max){
-            max = arr[i];
+        if(arr[i] > m){
+            m = arr[i];
         }
     }
-    return max;
+    return m;
 
 }
 
