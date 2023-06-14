@@ -28,7 +28,7 @@ double aggregrate(const char* func, double* arr,int size){
         
         for(int i = 0; i < 6; i++){
             if(strcasecmp(func,funcNames[i]) == 0){
-                val = func[i](arr,size);
+                //val = func[i](arr,size);
             }
         }
     }

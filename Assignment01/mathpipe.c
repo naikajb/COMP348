@@ -325,7 +325,7 @@ void handleCmdLine(int argc, char const **argv)
     }
 }
 
-void printArray(double arr[], int size){
+//void printArray(double arr[], int size){
     for (int i = 0; i < size; i++)
     {
         printf("[%i]-->%lf",i,arr[i]);
