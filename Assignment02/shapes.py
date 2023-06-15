@@ -1,14 +1,12 @@
 import math
 class Shape:
-    children = 0
     id = 0
     def __init__(self):
-        Shape.children += 1
-        id = Shape.children 
+        id += 1 
         print("Shape constructor called.")
 
     def print(self):
-        print("Shape id: " + str(self.id))
+        print(self.__class__.__name__ + " with  id: " + str(self.id))
         #print( self.__class__.__name__+ str(id))
 
     def perimeter(self):
