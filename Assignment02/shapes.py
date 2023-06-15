@@ -18,8 +18,7 @@ class Shape:
         return None
     
 class Circle(Shape):
-    r = 0
-
+   
     def __init__(self,radius):
         Shape.__init__(self)   
         self.r = radius
@@ -31,13 +30,11 @@ class Circle(Shape):
         return self.r * self.r * math.pi
 
 class Ellipse(Shape):
-    a = 0
-    b = 0
 
     def __init__(self,value1,value2):
         Shape.__init__(self)
-        a = value1 if value1 > value2 else value2
-        b = value2 if value1 > value2 else value1
+        self.a = max(value1,value2)
+        self.b = min(value1,value2)
 
     def area(self):
         return self.a * self.b * math.pi
@@ -49,22 +46,25 @@ class Ellipse(Shape):
 
 class Rhombus(Shape):
 
-    d1 = 0
-    d2 = 0
-
     def __init__(self,value1,value2):
         Shape.__init__(self)
-        d1 = value1
-        d2 = value2
+        self.d1 = value1
+        self.d2 = value2
 
     def perimeter(self):
-        return 
+        return 4 * self.side()
     
     def area(self):
         return self.d1 * self.d2 * 0.5
     
     def side(self):
-        return 
+        return math.sqrt(self.d1*self.d1 + self.d2*self.d2)/2
     
     def inradius(self):
-        return
+        p = self.d1
+        q = self.d2
+        r = p * q /(4 * self.side())
+        if r > 0:
+            return r
+        else:
+            return None
