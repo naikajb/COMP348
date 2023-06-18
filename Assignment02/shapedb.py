@@ -2,11 +2,36 @@
 # Naika Jean-Baptiste (40227367)
 # COMP 348 - SUMMER 2023
 
-import sys
+from multiset import *
 
 
 def loadFile():
+    filename = input("Enter the name of the database file: ")
+    file = open(filename, "rt")
+    current_shape = file.readline()
+
+
+
+
+def to_set():
     pass
+
+
+def handle_choice(choice):
+    if choice == 1:
+        loadFile()
+    elif choice == 2:
+        to_set()
+    elif choice == 3:
+        pass
+    elif choice == 4:
+        pass
+    elif choice == 5:
+        pass
+    elif choice == 6:
+        pass
+    elif choice == 7:
+        pass
 
 
 # def handleOps(args, n):
@@ -37,6 +62,7 @@ def main():
           + "\t1.LOAD\n\t2.TOSET\n\t3.SAVE\n\t4.PRINT\n\t5.SUMMARY\n\t6.DETAILS\n\t7.QUIT")
 
     choice = input("Choice: ")
+    handle_choice(choice)
     print("Option chosen: " + choice)
 
 
