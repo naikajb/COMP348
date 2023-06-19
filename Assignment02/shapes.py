@@ -6,17 +6,25 @@ class Shape:
 
     def __init__(self):
         Shape.id += 1
+        self.id = Shape.id
         # print("Shape constructor called.")
 
     def print(self):
-        print(self.__class__.__name__ + " with  id: " + str(self.id))
-        # print( self.__class__.__name__+ str(id))
+        info = str(self.id) + ": " + self.__class__.__name__ 
+        for attr in self.__dict__:
+            info += ", " + attr + ": " + str(self.__dict__[attr])
+        print(info + "\n")
+        # print(str(self.id)+ ": " + self.__class__.__name__ + ", perimeter: " + str(self.perimeter()) + ", area: " + str(self.area()))
+        # # print( self.__class__.__name__+ str(id))
     
     def perimeter(self):
-        return None
+        self.perimeter = 'undefined'
+        return 'undefined'
 
-    def area(self):  
-        return None
+    def area(self): 
+        self.area = 'undefined' 
+        return 'undefined'
+    
 class Circle(Shape):
 
     def __init__(self, radius):
@@ -24,10 +32,12 @@ class Circle(Shape):
         self.r = radius
 
     def perimeter(self):
-        return 2 * self.r * math.pi
+        self.perimeter = 2 * self.r * math.pi
+        return self.perimeter
 
     def area(self):
-        return self.r * self.r * math.pi
+        self.area = self.r * self.r * math.pi
+        return self.area
 
 
 class Ellipse(Shape):
@@ -51,6 +61,9 @@ class Rhombus(Shape):
         Shape.__init__(self)
         self.d1 = value1
         self.d2 = value2
+        self.area = self.area()
+        self.perimeter = self.perimeter()
+        self.inradius = self.inradius()
 
     def perimeter(self):
         return 4 * self.side()
