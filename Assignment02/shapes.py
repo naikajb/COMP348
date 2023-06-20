@@ -53,6 +53,9 @@ class Ellipse(Shape):
     def eccentricity(self):
         c = math.sqrt(self.a * self.a - self.b * self.b)
         return c
+    
+    def print(self):
+        print(str(self.id) + ": " + self.__class__.__name__ + ", perimeter: " + str(self.perimeter()) + ", area: " + str(self.area()) + ", eccentricity: " + str(self.eccentricity()))
 
 
 class Rhombus(Shape):
