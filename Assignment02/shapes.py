@@ -10,12 +10,8 @@ class Shape:
         # print("Shape constructor called.")
 
     def print(self):
-        info = str(self.id) + ": " + self.__class__.__name__ 
-        for attr in self.__dict__:
-            info += ", " + attr + ": " + str(self.__dict__[attr])
-        print(info + "\n")
-        # print(str(self.id)+ ": " + self.__class__.__name__ + ", perimeter: " + str(self.perimeter()) + ", area: " + str(self.area()))
-        # # print( self.__class__.__name__+ str(id))
+        print(str(self.id)+ ": " + self.__class__.__name__ + ", perimeter: " + str(self.perimeter()) + ", area: " + str(self.area()))
+        
     
     def perimeter(self):
         self.perimeter = 'undefined'
@@ -24,6 +20,7 @@ class Shape:
     def area(self): 
         self.area = 'undefined' 
         return 'undefined'
+    
     
 class Circle(Shape):
 
@@ -38,6 +35,10 @@ class Circle(Shape):
     def area(self):
         self.area = self.r * self.r * math.pi
         return self.area
+    
+    def print(self):
+        print(str(self.id)+ ": " + self.__class__.__name__ + ", perimeter: " + str(self.perimeter()) + ", area: " + str(self.area()))
+    
 
 
 class Ellipse(Shape):
@@ -55,7 +56,7 @@ class Ellipse(Shape):
         return c
     
     def print(self):
-        print(str(self.id) + ": " + self.__class__.__name__ + ", perimeter: " + str(self.perimeter()) + ", area: " + str(self.area()) + ", eccentricity: " + str(self.eccentricity()))
+        print(str(self.id)+ ": " + self.__class__.__name__ + ", perimeter: " + str(self.perimeter()) + ", area: " + str(self.area()))
 
 
 class Rhombus(Shape):
@@ -85,4 +86,7 @@ class Rhombus(Shape):
             return r
         else:
             return None
+        
+    def print(self):
+        print(str(self.id)+ ": " + self.__class__.__name__ + ", perimeter: " )
         
