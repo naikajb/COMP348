@@ -94,6 +94,25 @@ def save():
     for shape in shape_list:
         output.write(str(shape[0].__class__.__name__) + " " + str(shape[0].id) + " " )
 
+
+def give_summary():
+    print("\n\tSummary of shapes in the database:\n")
+    c, e, r, s = 0, 0, 0, 0
+
+    for shape in shape_list:
+        if shape[0].__class__.__name__ == "Circle" :
+            c += 1
+            s+= 1
+        elif shape[0].__class__.__name__ == "Ellipse":
+            e += 1
+            s+= 1
+        elif shape[0].__class__.__name__ == "Rhombus":
+            r += 1
+            s+= 1
+        elif shape[0].__class__.__name__ == "Shape":
+            s += 1
+    
+    print("\t\tCircle(s): " + str(c) + "\n\t\tEllipse(s): " + str(e) + "\n\t\tRhombus(es): " + str(r) + "\n\t\tShape(s): " + str(s) + "\n")
 def handle_choice(choice):
     if choice == "1":
         loadFile()
@@ -104,7 +123,7 @@ def handle_choice(choice):
     elif choice == "4":
         print_set()
     elif choice == "5":
-        pass
+        give_summary()
     elif choice == "6":
         pass
     elif choice == "7":
