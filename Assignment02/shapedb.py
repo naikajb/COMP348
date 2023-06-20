@@ -83,9 +83,6 @@ def print_set():
         print(shape[0])
 
 
-def summary():
-    pass
-
 def details():
     pass
 
@@ -95,7 +92,7 @@ def save():
         output.write(str(shape[0].__class__.__name__) + " " + str(shape[0].id) + " " )
 
 
-def give_summary():
+def summary():
     print("\n\tSummary of shapes in the database:\n")
     c, e, r, s = 0, 0, 0, 0
 
@@ -123,7 +120,7 @@ def handle_choice(choice):
     elif choice == "4":
         print_set()
     elif choice == "5":
-        give_summary()
+        summary()
     elif choice == "6":
         pass
     elif choice == "7":
@@ -137,7 +134,7 @@ def main():
 
     while choice != "7":
         print("\nWelcome to the Shape Database. Please enter a choice (1-7) from the options below:\n"
-          + "\t1.LOAD\n\t2.TOSET\n\t3.SAVE\n\t4.PRINT\n\t5.SUMMARY\n\t6.DETAILS\n\t7.QUIT")
+          + "\t1.LOAD (DONE)\n\t2.TOSET\n\t3.SAVE\n\t4.PRINT\n\t5.SUMMARY (DONE)\n\t6.DETAILS\n\t7.QUIT (DONE)\n")
 
         choice = input("Choice: ")
         handle_choice(choice)
