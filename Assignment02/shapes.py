@@ -27,6 +27,8 @@ class Circle(Shape):
     def __init__(self, radius):
         Shape.__init__(self)
         self.r = radius
+        self.perimeter = self.perimeter()
+        self.area = self.area()
 
     def perimeter(self):
         self.perimeter = 2 * self.r * math.pi
@@ -37,7 +39,8 @@ class Circle(Shape):
         return self.area
     
     def print(self):
-        print(str(self.id)+ ": " + self.__class__.__name__ + ", perimeter: " + str(self.perimeter()) + ", area: " + str(self.area()))
+        # print(str(self.id)+ ": " + self.__class__.__name__ + ", perimeter: " + str(self.perimeter()) + ", area: " + str(self.area()))
+        print(str(self.id) + ": " + self.__class__.__name__ + ", area: {area:.5f}, perimeter: {perimeter:.5f}".format(area=self.area, perimeter=self.perimeter))
     
 
 
@@ -47,16 +50,22 @@ class Ellipse(Shape):
         Shape.__init__(self)
         self.a = max(value1, value2)
         self.b = min(value1, value2)
+        self.eccentricity = self.eccentricity()
+        self.perimeter = self.perimeter()
+        self.area = self.area()
 
     def area(self):
-        return self.a * self.b * math.pi
+        aire = self.a * self.b 
+        aire = aire * math.pi
+        return aire
 
     def eccentricity(self):
         c = math.sqrt(self.a * self.a - self.b * self.b)
         return c
     
     def print(self):
-        print(str(self.id)+ ": " + self.__class__.__name__ + ", perimeter: " + str(self.perimeter()) + ", area: " + str(self.area()))
+        # print(str(self.id)+ ": " + self.__class__.__name__ + ", perimeter: " + str(self.perimeter()) + ", area: " + str(self.area()))
+        print(str(self.id) + ": " + self.__class__.__name__ + ", area: {area:5f}, perimeter: " + self.perimeter+ "".format(area=self.area, perimeter=self.perimeter))
 
 
 class Rhombus(Shape):
@@ -70,13 +79,16 @@ class Rhombus(Shape):
         self.inradius = self.inradius()
 
     def perimeter(self):
-        return 4 * self.side()
+        p = self.side()
+        return 4 * p
 
     def area(self):
         return self.d1 * self.d2 * 0.5
 
     def side(self):
-        return math.sqrt(self.d1 * self.d1 + self.d2 * self.d2) / 2
+        ans = math.sqrt(self.d1 * self.d1 + self.d2 * self.d2)
+        ans = ans / 2
+        return ans
 
     def inradius(self):
         p = self.d1
@@ -88,5 +100,6 @@ class Rhombus(Shape):
             return None
         
     def print(self):
-        print(str(self.id)+ ": " + self.__class__.__name__ + ", perimeter: " )
+        # print(str(self.id)+ ": " + self.__class__.__name__ + ", perimeter: "  +  "%.2f, area: %.2f, inradius: %.2f" % (str(self.perimeter, str(self.inradius) % str(self.area))))
+        print(str(self.id) + ": " + self.__class__.__name__ + ", area: {area:.0f}, perimeter: {perimeter:.0f}, inradius: {inradius:.0f}".format(area=self.area, perimeter=self.perimeter, inradius=self.inradius))
         
