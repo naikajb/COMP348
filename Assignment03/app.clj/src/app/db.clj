@@ -4,10 +4,9 @@
 ;needs to process the rows of the file
 ; creates a MAP 
 (defn checkRow [line]
-  (let [[id name address phone] (str/split line #"\|")]
+  (let [[id name phone] (str/split line #"\|")]
     {:studID id
      :name name
-     :address address
      :phoneNum phone}))
 
 ;load the data 
