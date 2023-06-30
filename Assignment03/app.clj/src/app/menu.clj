@@ -65,7 +65,7 @@
            (= option 6) (do
                         (print "Enter course ID: ")
                         (let [courseID (read-line)]
-                          (println (str "Course average for course " courseID ": " (db/calculate-course-average courseID)))))
+                          (println (str "Course average for course " courseID ": " (db/calculate-average courseID)))))
           (= option 7) (do
                         (println "Exiting...")
                         (System/exit 0))
