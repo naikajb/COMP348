@@ -1,21 +1,21 @@
 (ns menu
   (:require [db]))
-(defn displayCourses []
-  (println "displaying Courses: ")
-  ;; (def courses (slurp "courses.txt"))
-  ;; (println courses)
-  (def courses (slurp "courses.txt"))
-  (println courses))
+;; (defn displayCourses []
+;;   (println "displaying Courses: ")
+;;   ;; (def courses (slurp "courses.txt"))
+;;   ;; (println courses)
+;;   (def courses (slurp "courses.txt"))
+;;   (println courses))
 
-(defn displayStudents []
-  (println "displaying Students: ")
-  (def students (slurp "studs.txt"))
-  (println students))
+;; (defn displayStudents []
+;;   (println "displaying Students: ")
+;;   (def students (slurp "studs.txt"))
+;;   (println students))
 
-(defn displayGrades []
-  (println "displaying Grades: ")
-  (def grades (slurp "grades.txt"))
-  (println grades))
+;; (defn displayGrades []
+;;   (println "displaying Grades: ")
+;;   (def grades (slurp "grades.txt"))
+  ;; (println grades))
 
 (defn displayMenu []
    (println "*** SIS Menu ***
